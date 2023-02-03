@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+// import Card from '../components/Card.astro';
+---
+
+<Layout title="GROCERY LIST GENERATOR">
+  <main>
+    <section>
+      <div class="grid grid-cols-3">
+        <button
+          id="add_meal"
+          class="text-xl bg-green-500 text-white font-semibold py-24 border-4 border-green-500 hover:bg-white hover:text-green-500 hover:underline hover:underline-offset-8"
+          >ADD A MEAL</button
+        >
+        <button
+          id="add_ingredient"
+          class="text-xl bg-blue-500 text-white font-semibold py-24 border-4 border-blue-500 hover:bg-white hover:text-blue-500 hover:underline hover:underline-offset-8"
+          >ADD AN INGREDIENT</button
+        >
+        <button
+          id="add_something_else"
+          class="text-xl bg-gray-500 text-white font-semibold py-24 border-4 border-gray-500 hover:bg-white hover:text-gray-500 hover:underline hover:underline-offset-8"
+          >ADD SOMETHING ELSE</button
+        >
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style></style>
+
+<script is:inline type="text/javascript">
+  const addMealButton = document.getElementById("add_meal");
+  const addIngredientButton = document.getElementById("add_ingredient");
+  const addSomethingElseButton = document.getElementById("add_something_else");
+
+  addMealButton.addEventListener("click", () => {
+    alert("Button was clicked!");
+  });
+
+  addIngredientButton.addEventListener("click", () => {
+    alert("Button was clicked!");
+  });
+
+  addSomethingElseButton.addEventListener("click", () => {
+    alert("Button was clicked!");
+  });
+</script>
