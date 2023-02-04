@@ -8,20 +8,42 @@ import Layout from "../layouts/Layout.astro";
     <section>
       <div class="grid grid-cols-3">
         <button
-          id="add_meal"
+          id="add_meal_button"
           class="text-xl bg-green-500 text-white font-semibold py-24 border-4 border-green-500 hover:bg-white hover:text-green-500 hover:underline hover:underline-offset-8"
           >ADD A MEAL</button
         >
         <button
-          id="add_ingredient"
+          id="add_ingredient_button"
           class="text-xl bg-blue-500 text-white font-semibold py-24 border-4 border-blue-500 hover:bg-white hover:text-blue-500 hover:underline hover:underline-offset-8"
           >ADD AN INGREDIENT</button
         >
         <button
-          id="add_something_else"
+          id="add_other_button"
           class="text-xl bg-gray-500 text-white font-semibold py-24 border-4 border-gray-500 hover:bg-white hover:text-gray-500 hover:underline hover:underline-offset-8"
           >ADD SOMETHING ELSE</button
         >
+      </div>
+    </section>
+    <section
+      id="input_section"
+      class="bg-gray-300 p-12 border-8 border-white rounded-3xl hidden"
+    >
+      <div class="max-w-sm mx-auto">
+        <div id="add_meal_input" class="hidden">
+          <p class="py-4 text-center text-2xl">Add a new meal:</p>
+          <input type="text" class="w-full" />
+        </div>
+        <div id="add_ingredient_input" class="hidden">
+          <p class="py-4 text-center text-2xl">Add a new ingredient:</p><input
+            type="text"
+            class="w-full"
+          />
+        </div>
+        <div id="add_other_input" class="hidden">
+          <p class="py-4 text-center text-2xl">
+            Add a new non-food item:
+          </p><input type="text" class="w-full" />
+        </div>
       </div>
     </section>
   </main>
@@ -30,19 +52,34 @@ import Layout from "../layouts/Layout.astro";
 <style></style>
 
 <script is:inline type="text/javascript">
-  const addMealButton = document.getElementById("add_meal");
-  const addIngredientButton = document.getElementById("add_ingredient");
-  const addSomethingElseButton = document.getElementById("add_something_else");
+  const addMealButton = document.getElementById("add_meal_button");
+  const addIngredientButton = document.getElementById("add_ingredient_button");
+  const addOtherButton = document.getElementById("add_other_button");
+
+  const inputSection = document.getElementById("input_section");
+
+  const addMealInput = document.getElementById("add_meal_input");
+  const addIngredientInput = document.getElementById("add_ingredient_input");
+  const addOtherInput = document.getElementById("add_other_input");
 
   addMealButton.addEventListener("click", () => {
-    alert("Button was clicked!");
+    inputSection.classList.remove("hidden");
+    addMealInput.classList.remove("hidden");
+    addIngredientInput.classList.add("hidden");
+    addOtherInput.classList.add("hidden");
   });
 
   addIngredientButton.addEventListener("click", () => {
-    alert("Button was clicked!");
+    inputSection.classList.remove("hidden");
+    addIngredientInput.classList.remove("hidden");
+    addMealInput.classList.add("hidden");
+    addOtherInput.classList.add("hidden");
   });
 
-  addSomethingElseButton.addEventListener("click", () => {
-    alert("Button was clicked!");
+  addOtherButton.addEventListener("click", () => {
+    inputSection.classList.remove("hidden");
+    addOtherInput.classList.remove("hidden");
+    addMealInput.classList.add("hidden");
+    addIngredientInput.classList.add("hidden");
   });
 </script>
