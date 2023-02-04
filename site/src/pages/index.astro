@@ -30,19 +30,28 @@ import Layout from "../layouts/Layout.astro";
     >
       <div class="max-w-sm mx-auto">
         <div id="add_meal_input" class="hidden">
-          <p class="py-4 text-center text-2xl">Add a new meal:</p>
-          <input type="text" class="w-full" />
+          <p class="text-center text-2xl">Add a new meal:</p>
+          <input type="text" class="w-full p-4 my-4 " />
+          <div class="grid grid-cols-2">
+            <button class="p-4 bg-green-400 text-white hover:underline">Add</button><button class="p-4 bg-red-400 text-white hover:underline ">Close</button>
+          </div>
         </div>
         <div id="add_ingredient_input" class="hidden">
-          <p class="py-4 text-center text-2xl">Add a new ingredient:</p><input
+          <p class="text-center text-2xl">Add a new ingredient:</p><input
             type="text"
-            class="w-full"
+            class="w-full p-4 my-4 "
           />
+          <div class="grid grid-cols-2">
+            <button class="p-4 bg-green-400 text-white hover:underline">Add</button><button class="p-4 bg-red-400 text-white hover:underline ">Close</button>
+          </div>
         </div>
         <div id="add_other_input" class="hidden">
-          <p class="py-4 text-center text-2xl">
+          <p class="text-center text-2xl">
             Add a new non-food item:
-          </p><input type="text" class="w-full" />
+          </p><input type="text" class="w-full p-4 my-4 " />
+          <div class="grid grid-cols-2">
+            <button class="p-4 bg-green-400 text-white hover:underline">Add</button><button class="p-4 bg-red-400 text-white hover:underline ">Close</button>
+          </div>
         </div>
       </div>
     </section>
