@@ -28,13 +28,13 @@ import Layout from "../layouts/Layout.astro";
     <!-- ONCE ONE OF THE BUTTONS ABOVE IS CLICKED, IT WILL DISPLAY ONE OF THESE 3 INPUTS BELOW & HIDE THE OTHER TWO -->
     <section
       id="input_section"
-      class="bg-gray-300 p-12 border-8 border-white rounded-3xl"
+      class="m-4 border-gray-300 p-12 border-4 rounded-3xl"
     >
-      <div class="max-w-sm mx-auto">
+      <div class="max-w-xl mx-auto">
         <!-- ADD MEAL INPUT -->
         <div id="add_meal_input">
           <p class="text-center text-2xl">Add a new meal:</p>
-          <input type="text" class="w-full p-4 my-4" />
+          <input type="text" class="w-full p-4 my-4 border-2 border-green-500" />
 
           <button
             id="add_meal_input_button"
@@ -44,9 +44,12 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <!-- ADD MEAL INGREDIENTS INPUT -->
         <div id="add_ingredient_to_meal_input" class="hidden">
-          <p class="text-center text-2xl">Add meal ingredients:</p>
-          <input type="text" class="w-full p-4 my-4" />
-          <div class="grid grid-cols-2">
+          <p class="text-center text-2xl">Add new ingredient / pick from existing ones:</p>
+          <div class="grid grid-cols-2 gap-4">
+            <input type="text" class="p-4 my-4 border-2 border-green-500" />
+            <select name="existing ingredients" id="existing_ingredients" class="p-4 my-4 border-2 border-green-500"></select>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
             <button
               class="w-full p-4 bg-green-500 text-white text-base font-semibold hover:underline hover:underline-offset-8"
               >ADD</button
@@ -56,13 +59,14 @@ import Layout from "../layouts/Layout.astro";
               class="w-full p-4 bg-red-500 text-white text-base font-semibold hover:underline hover:underline-offset-8"
               >DONE</button
             >
+
           </div>
         </div>
         <!-- ADD INGREDIENT INPUT -->
         <div id="add_ingredient_input" class="hidden">
           <p class="text-center text-2xl">Add a new ingredient:</p><input
             type="text"
-            class="w-full p-4 my-4"
+            class="w-full p-4 my-4 border-2 border-green-500"
           />
 
           <button
@@ -74,7 +78,7 @@ import Layout from "../layouts/Layout.astro";
         <div id="add_other_input" class="hidden">
           <p class="text-center text-2xl">Add a new non-food item:</p><input
             type="text"
-            class="w-full p-4 my-4"
+            class="w-full p-4 my-4 border-2 border-green-500"
           />
 
           <button
@@ -166,6 +170,6 @@ import Layout from "../layouts/Layout.astro";
     addMealInput.classList.remove("hidden");
     addIngredientToMealInput.classList.add("hidden");
   });
-  
+
   // THIS IS THE BASIC LOGIC FOR ADDING THE ITEMS INTO THEIR RESPECTIVE LISTS
 </script>
