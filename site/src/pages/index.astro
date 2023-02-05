@@ -149,18 +149,16 @@ import Layout from "../layouts/Layout.astro";
   );
 
   // INDIVIDUAL TEXT INPUTS
-  // const addMealInput = document.getElementById(
-  //   "add_meal_input"
+  // const addMealInputText = document.getElementById(
+  //   "add_meal_input_text"
   // );
-  // const addIngredientToMealInput = document.getElementById(
-  //   "add_ingredient_to_meal_input"
+  // const addIngredientToMealInputText = document.getElementById(
+  //   "add_ingredient_to_meal_input_text"
   // );
-  // const addIngredientInput = document.getElementById(
-  //   "add_ingredient_input"
-  // );
-  const addOtherInput = document.getElementById(
-    "add_other_input"
+  const addIngredientInputText = document.getElementById(
+    "add_ingredient_input_text"
   );
+  const addOtherInputText = document.getElementById("add_other_input_text");
 
   // ITEM INPUT BUTTONS
   const addMealInputButton = document.getElementById("add_meal_button");
@@ -170,7 +168,7 @@ import Layout from "../layouts/Layout.astro";
   const addIngredientToMealDoneButton = document.getElementById(
     "add_ingredient_to_meal_done_button"
   );
-  // const addIngredientButton = document.getElementById("add_ingredient_button");
+  const addIngredientButton = document.getElementById("add_ingredient_button");
   const addOtherButton = document.getElementById("add_other_button");
 
   // EMPTY ARRAYS FOR EACH TYPE OF ITEM; MEALS IS A NESTED ARRAY, WHERE EACH MEAL ITSELF IS AN ARRAY OF INGREDIENTS
@@ -202,7 +200,7 @@ import Layout from "../layouts/Layout.astro";
 
   // WHEN YOU ADD A MEAL, YOU ARE THEN PROMPTED TO ADD INGREDIENTS TO THE MEAL
   addMealInputButton.addEventListener("click", () => {
-    Container.classList.add("hidden");
+    addMealInputContainer.classList.add("hidden");
     addIngredientToMealInputContainer.classList.remove("hidden");
   });
 
@@ -214,9 +212,43 @@ import Layout from "../layouts/Layout.astro";
 
   // THIS IS THE BASIC LOGIC FOR ADDING THE ITEMS INTO THEIR RESPECTIVE LISTS
 
+  addIngredientButton.addEventListener("click", () => {
+    if (!addIngredientInputText.value) {
+      alert("There is nothing typed in.  Please type something in.");
+      return false;
+    } else {
+      ingredients.push(addIngredientInputText.value);
+      addIngredientInputText.value = "";
+      let ingredientsList = "";
+      // FOREACH FOR WRITING ARRAYS OF INGREDIENTS TO THE DOM
+      ingredients.forEach(addIngredientToList);
+      document.getElementById("ingredients_list").innerHTML = ingredientsList;
+      function addIngredientToList(item) {
+        ingredientsList += item + "<br>";
+      }
+      // HAVE TO HAVE RETURN STATEMENT OR ELSE CHANGING THE VALUE TO " " FOR addIngredientInputText.value WILL MAKE IT SO YOU CAN'T TYPE IN ANYTHING AFTER FIRST CLICKING BECAUSE THE VALUE IS NOTHING.  event.preventDefault() IS DEPRECATED, OTHERWISE THAT WOULD WORK
+      return true;
+    }
+  });
+
   addOtherButton.addEventListener("click", () => {
-    const addOtherInputValue = addOtherInput.value;
-    otherItems.push(addOtherInputValue);
+    // MAKES SURE FIELD IS NOT EMPTY
+    if (!addOtherInputText.value) {
+      alert("There is nothing typed in.  Please type something in.");
+      return false;
+    } else {
+      otherItems.push(addOtherInputText.value);
+      addOtherInputText.value = "";
+      let otherItemsList = "";
+      // FOREACH FOR WRITING ARRAYS OF INGREDIENTS TO THE DOM
+      otherItems.forEach(addOtherItemToList);
+      document.getElementById("other_items_list").innerHTML = otherItemsList;
+      function addOtherItemToList(item) {
+        otherItemsList += item + "<br/>";
+      }
+      // HAVE TO HAVE RETURN STATEMENT OR ELSE CHANGING THE VALUE TO " " FOR addIngredientInputText.value WILL MAKE IT SO YOU CAN'T TYPE IN ANYTHING AFTER FIRST CLICKING BECAUSE THE VALUE IS NOTHING.  event.preventDefault() IS DEPRECATED, OTHERWISE THAT WOULD WORK
+      return true;
+    }
   });
 
   console.log(meals);
