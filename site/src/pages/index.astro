@@ -58,8 +58,8 @@ import Layout from "../layouts/Layout.astro";
               class="p-4 my-4 border-2 border-green-500"
             />
             <select
-              name="existing ingredients"
-              id="existing_ingredients"
+              name="existing ingredients select dropdown"
+              id="existing_ingredients_select"
               class="p-4 my-4 border-2 border-green-500"></select>
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -149,9 +149,7 @@ import Layout from "../layouts/Layout.astro";
   );
 
   // INDIVIDUAL TEXT INPUTS
-  // const addMealInputText = document.getElementById(
-  //   "add_meal_input_text"
-  // );
+  const addMealInputText = document.getElementById("add_meal_input_text");
   // const addIngredientToMealInputText = document.getElementById(
   //   "add_ingredient_to_meal_input_text"
   // );
@@ -161,7 +159,7 @@ import Layout from "../layouts/Layout.astro";
   const addOtherInputText = document.getElementById("add_other_input_text");
 
   // ITEM INPUT BUTTONS
-  const addMealInputButton = document.getElementById("add_meal_button");
+  const addMealButton = document.getElementById("add_meal_button");
   // const addIngredientToMealButton = document.getElementById(
   //   "add_ingredient_to_meal_button"
   // );
@@ -198,10 +196,29 @@ import Layout from "../layouts/Layout.astro";
     addIngredientInputContainer.classList.add("hidden");
   });
 
+  // THIS IS THE LOGIC FOR ADDING THE ITEMS INTO THEIR RESPECTIVE LISTS
+
   // WHEN YOU ADD A MEAL, YOU ARE THEN PROMPTED TO ADD INGREDIENTS TO THE MEAL
-  addMealInputButton.addEventListener("click", () => {
-    addMealInputContainer.classList.add("hidden");
-    addIngredientToMealInputContainer.classList.remove("hidden");
+  addMealButton.addEventListener("click", () => {
+    if (!addMealInputText.value) {
+      alert("There is nothing typed in.  Please type something in.");
+      return false;
+    } else {
+      addMealInputContainer.classList.add("hidden");
+      addIngredientToMealInputContainer.classList.remove("hidden");
+      meals.push(addMealInputText.value);
+      // CLEARING THE INPUT BOX
+      addMealInputText.value = "";
+      // FOREACH FOR WRITING ARRAY OF MEALS TO THE DOM
+      let mealList = "";
+      meals.forEach(addMealToList);
+      document.getElementById("meals_list").innerHTML = mealList;
+      function addMealToList(item) {
+        mealList += "<p>" + item + "</p>" + "<br>";
+      }
+      // HAVE TO HAVE RETURN STATEMENT OR ELSE CHANGING THE VALUE TO " " FOR addIngredientInputText.value WILL MAKE IT SO YOU CAN'T TYPE IN ANYTHING AFTER FIRST CLICKING BECAUSE THE VALUE IS NOTHING.  event.preventDefault() IS DEPRECATED, OTHERWISE THAT WOULD WORK
+      return true;
+    }
   });
 
   // YOU CLICK THE DONE BUTTON WHICH CLOSES THE ADD MEAL INGREDIENT INPUT AND GOES BACK TO DEFAULT (ADD MEAL INPUT)
@@ -210,21 +227,24 @@ import Layout from "../layouts/Layout.astro";
     addIngredientToMealInputContainer.classList.add("hidden");
   });
 
-  // THIS IS THE BASIC LOGIC FOR ADDING THE ITEMS INTO THEIR RESPECTIVE LISTS
-
   addIngredientButton.addEventListener("click", () => {
     if (!addIngredientInputText.value) {
       alert("There is nothing typed in.  Please type something in.");
       return false;
     } else {
       ingredients.push(addIngredientInputText.value);
+      // WRITING INGREDIENTS TO SELECT DROPDOWN (SEELECT DROPDOWN IS PROMPTED WHEN USER ENTERS IN NEW MEAL, SO THEY CAN CHOOSE ALREADY-EXISTING INGREDIENTS TO ADD TO THE MEAL)
+      const option = document.createElement("option");
+      option.text = addIngredientInputText.value;
+      document.getElementById("existing_ingredients_select").add(option);
+      // CLEARING THE INPUT BOX
       addIngredientInputText.value = "";
+      // FOREACH FOR WRITING ARRAY OF INGREDIENTS TO THE DOM
       let ingredientsList = "";
-      // FOREACH FOR WRITING ARRAYS OF INGREDIENTS TO THE DOM
       ingredients.forEach(addIngredientToList);
       document.getElementById("ingredients_list").innerHTML = ingredientsList;
       function addIngredientToList(item) {
-        ingredientsList += item + "<br>";
+        ingredientsList += "<select>" + item + "</select>" + "<br>";
       }
       // HAVE TO HAVE RETURN STATEMENT OR ELSE CHANGING THE VALUE TO " " FOR addIngredientInputText.value WILL MAKE IT SO YOU CAN'T TYPE IN ANYTHING AFTER FIRST CLICKING BECAUSE THE VALUE IS NOTHING.  event.preventDefault() IS DEPRECATED, OTHERWISE THAT WOULD WORK
       return true;
@@ -238,13 +258,14 @@ import Layout from "../layouts/Layout.astro";
       return false;
     } else {
       otherItems.push(addOtherInputText.value);
+      // CLEARING THE INPUT BOX
       addOtherInputText.value = "";
+      // FOREACH FOR WRITING ARRAY OF OTHER NON-FOOD ITEMS TO THE DOM
       let otherItemsList = "";
-      // FOREACH FOR WRITING ARRAYS OF INGREDIENTS TO THE DOM
       otherItems.forEach(addOtherItemToList);
       document.getElementById("other_items_list").innerHTML = otherItemsList;
       function addOtherItemToList(item) {
-        otherItemsList += item + "<br/>";
+        otherItemsList += "<p>" + item + "</p>" + "<br/>";
       }
       // HAVE TO HAVE RETURN STATEMENT OR ELSE CHANGING THE VALUE TO " " FOR addIngredientInputText.value WILL MAKE IT SO YOU CAN'T TYPE IN ANYTHING AFTER FIRST CLICKING BECAUSE THE VALUE IS NOTHING.  event.preventDefault() IS DEPRECATED, OTHERWISE THAT WOULD WORK
       return true;
