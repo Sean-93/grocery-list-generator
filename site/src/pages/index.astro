@@ -5,6 +5,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="GROCERY LIST GENERATOR">
   <main>
+    <!-- SELECT WHICH TYPE OF ITEM TO ADD -->
     <section>
       <div class="grid grid-cols-3">
         <button
@@ -24,34 +25,61 @@ import Layout from "../layouts/Layout.astro";
         >
       </div>
     </section>
+    <!-- ONCE ONE OF THE BUTTONS ABOVE IS CLICKED, IT WILL DISPLAY ONE OF THESE 3 INPUTS BELOW & HIDE THE OTHER TWO -->
     <section
       id="input_section"
-      class="bg-gray-300 p-12 border-8 border-white rounded-3xl hidden"
+      class="bg-gray-300 p-12 border-8 border-white rounded-3xl"
     >
       <div class="max-w-sm mx-auto">
-        <div id="add_meal_input" class="hidden">
+        <!-- ADD MEAL INPUT -->
+        <div id="add_meal_input">
           <p class="text-center text-2xl">Add a new meal:</p>
-          <input type="text" class="w-full p-4 my-4 " />
-          <div class="grid grid-cols-2">
-            <button class="p-4 bg-green-400 text-white hover:underline">Add</button><button class="p-4 bg-red-400 text-white hover:underline ">Close</button>
-          </div>
+          <input type="text" class="w-full p-4 my-4" />
+
+          <button
+            class="w-full p-4 bg-green-500 text-white text-base font-semibold hover:underline hover:underline-offset-8"
+            >ADD TO LIST</button
+          >
         </div>
+        <!-- ADD INGREDIENT INPUT -->
         <div id="add_ingredient_input" class="hidden">
           <p class="text-center text-2xl">Add a new ingredient:</p><input
             type="text"
-            class="w-full p-4 my-4 "
+            class="w-full p-4 my-4"
           />
-          <div class="grid grid-cols-2">
-            <button class="p-4 bg-green-400 text-white hover:underline">Add</button><button class="p-4 bg-red-400 text-white hover:underline ">Close</button>
-          </div>
+
+          <button
+            class="w-full p-4 bg-green-500 text-white text-base font-semibold hover:underline hover:underline-offset-8"
+            >ADD TO LIST</button
+          >
         </div>
+        <!-- ADD OTHER ITEM INPUT -->
         <div id="add_other_input" class="hidden">
-          <p class="text-center text-2xl">
-            Add a new non-food item:
-          </p><input type="text" class="w-full p-4 my-4 " />
-          <div class="grid grid-cols-2">
-            <button class="p-4 bg-green-400 text-white hover:underline">Add</button><button class="p-4 bg-red-400 text-white hover:underline ">Close</button>
-          </div>
+          <p class="text-center text-2xl">Add a new non-food item:</p><input
+            type="text"
+            class="w-full p-4 my-4"
+          />
+
+          <button
+            class="w-full p-4 bg-green-500 text-white text-base font-semibold hover:underline hover:underline-offset-8"
+            >ADD TO LIST</button
+          >
+        </div>
+      </div>
+    </section>
+    <!-- SECTION FOR SORTED OUTPUT -->
+    <section class="p-12">
+      <div class="max-w-sm mx-auto">
+        <div class="mb-4 border-b-2 border-gray-200">
+          <h3 class="text-xl">MEALS:</h3><br /><ul id="meals_list"></ul>
+        </div>
+        <div class="mb-4 border-b-2 border-gray-200">
+          <h3 class="text-xl">INGREDIENTS:</h3><br /><ul id="ingredients_list">
+          </ul>
+        </div>
+        <div class="mb-4 border-b-2 border-gray-200">
+          <h3 class="text-xl">OTHER ITEMS:</h3><br /><ul id="other_items_list">
+          </ul>
         </div>
       </div>
     </section>
@@ -61,32 +89,35 @@ import Layout from "../layouts/Layout.astro";
 <style></style>
 
 <script is:inline type="text/javascript">
+  // THESE BUTTONS WILL UNHIDE THE RESPECTIVE INPUT SECTION
   const addMealButton = document.getElementById("add_meal_button");
   const addIngredientButton = document.getElementById("add_ingredient_button");
   const addOtherButton = document.getElementById("add_other_button");
 
-  const inputSection = document.getElementById("input_section");
-
+  // INDIVIDUAL TEXT INPUTS
   const addMealInput = document.getElementById("add_meal_input");
   const addIngredientInput = document.getElementById("add_ingredient_input");
   const addOtherInput = document.getElementById("add_other_input");
 
+  // EMPTY ARRAYS FOR EACH TYPE OF ITEM; MEALS IS A NESTED ARRAY, WHERE EACH MEAL ITSELF IS AN ARRAY OF INGREDIENTS
+  let meals = [];
+  let ingredients = [];
+  let otherItems = [];
+
+  // THIS IS THE LOGIC FOR DISPLAYING THE CORRECT INPUT SECTION WHILE HIDING THE OTHER TWO
   addMealButton.addEventListener("click", () => {
-    inputSection.classList.remove("hidden");
     addMealInput.classList.remove("hidden");
     addIngredientInput.classList.add("hidden");
     addOtherInput.classList.add("hidden");
   });
 
   addIngredientButton.addEventListener("click", () => {
-    inputSection.classList.remove("hidden");
     addIngredientInput.classList.remove("hidden");
     addMealInput.classList.add("hidden");
     addOtherInput.classList.add("hidden");
   });
 
   addOtherButton.addEventListener("click", () => {
-    inputSection.classList.remove("hidden");
     addOtherInput.classList.remove("hidden");
     addMealInput.classList.add("hidden");
     addIngredientInput.classList.add("hidden");
